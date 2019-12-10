@@ -3,5 +3,6 @@
         "activityBar.background": "#173041",
         "titleBar.activeBackground": "#20435A",
         "titleBar.activeForeground": "#F9FBFD"
-    }
+    },
+    "python.pythonPath": "/home/shaibu/.pyenv/versions/legarda/bin/python"
 }
