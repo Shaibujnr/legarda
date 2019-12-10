@@ -6,6 +6,8 @@ from flask_script import Manager
 
 from legarda.api import create_app, db
 
+from legarda.api.models.dummy import Dummy
+
 app = create_app(os.getenv('APP_ENV') or 'dev')
 
 app.app_context().push()
