@@ -10,3 +10,10 @@ class UserDto:
         'username': fields.String(required=True, description='user username'),
         'password': fields.String(required=True, description='user password')
     })
+
+class AuthDto:
+    api = Namespace('auth', description='authentication related operations', path='/auth')
+    user_auth = api.model('auth_details', {
+        'name': fields.String(required=True, description='The email address or username'),
+        'password': fields.String(required=True, description='The user password '),
+    })

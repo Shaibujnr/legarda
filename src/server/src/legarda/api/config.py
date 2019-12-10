@@ -7,6 +7,10 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     SECRET_KEY = os.getenv('SECRET_KEY', 'my_precious_secret_key')
+    JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', 'jwtsecretkey')
+    JWT_HEADER_TYPE = "JWT"
+    JWT_ACCESS_TOKEN_EXPIRES = False
+    JWT_BLACKLIST_ENABLED = True
     DEBUG = False
 
 

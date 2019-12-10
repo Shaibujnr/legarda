@@ -1,5 +1,7 @@
 import datetime
 
+from flask_jwt_extended import create_access_token, get_jwt_identity
+
 from legarda.api import db
 from legarda.api.models import User
 
@@ -14,7 +16,7 @@ class UserService:
             user = User.query.filter_by(email=data['email']).first() or \
                 User.query.filter_by(username=data['username']).first()
             if not user:
-                new_user = User(
+                new_user: User = User(
                     data['firstName'], 
                     data['lastName'], 
                     data['email'], 
@@ -24,7 +26,8 @@ class UserService:
                 self.__save_changes(new_user)
                 response_object = {
                     'status': 'success',
-                    'message': 'Successfully registered.'
+                    'message': 'Successfully registered.',
+                    'token': create_access_token(identity=new_user.id)
                 }
                 return response_object, 201
             else:
@@ -36,7 +39,7 @@ class UserService:
         except Exception as e:
             response_object = {
                 'status': 'fail',
-                'message': str(e)
+                'message': e
             }
             return response_object, 409
 
