@@ -14,6 +14,8 @@ flask-sqlalchemy = "^2.4"
 flask-jwt-extended = "^3.24"
 flask-bcrypt = "^0.7.1"
 flask-testing = "^0.7.1"
+psycopg2 = "^2.8"
+python-dotenv = "^0.10.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
