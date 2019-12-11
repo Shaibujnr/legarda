@@ -24,3 +24,15 @@ class CategoryDto:
         'id': fields.String(description='category id'),
         'name': fields.String(required=True, description='category name')
     })
+
+class ProductDto:
+    api = Namespace('product', description='product related operations', path='/')
+    product = api.model('product', {
+        'id': fields.String(description='product id'),
+        'name': fields.String(required=True, description='product name'),
+        'manufacturer': fields.String(description='product manufacturer'),
+        'price': fields.Float(required=True, description='product price'),
+        'location': fields.String(required=True, description='product location'),
+        'count': fields.Integer(description='number of products available'),
+        'dateCreated': fields.DateTime(description='date created')
+    })

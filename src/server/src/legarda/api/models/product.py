@@ -8,7 +8,7 @@ class Product(db.Model):
     __tablename__ = "products"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(255), nullable=False)
+    name = db.Column(db.String(255), nullable=False, unique=True)
     manufacturer = db.Column(db.String(255), nullable=True)
     price = db.Column(db.Float, nullable=False, default=0)
     image = db.Column(db.String(255), nullable=True)
