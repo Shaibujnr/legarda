@@ -17,3 +17,10 @@ class AuthDto:
         'name': fields.String(required=True, description='The email address or username'),
         'password': fields.String(required=True, description='The user password '),
     })
+
+class CategoryDto:
+    api = Namespace('category', description='category related operations', path='/')
+    category = api.model('category', {
+        'id': fields.String(description='category id'),
+        'name': fields.String(required=True, description='category name')
+    })

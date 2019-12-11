@@ -30,7 +30,7 @@ class AuthService:
 
         except Exception as e:
             print(e)
-            response_object = {okay
+            response_object = {
                 'status': 'fail',
                 'message': 'Try again'
             }
