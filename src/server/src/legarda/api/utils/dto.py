@@ -21,18 +21,28 @@ class AuthDto:
 class CategoryDto:
     api = Namespace('category', description='category related operations', path='/')
     category = api.model('category', {
-        'id': fields.String(description='category id'),
+        'id': fields.Integer(description='category id'),
         'name': fields.String(required=True, description='category name')
     })
 
 class ProductDto:
     api = Namespace('product', description='product related operations', path='/')
     product = api.model('product', {
-        'id': fields.String(description='product id'),
+        'id': fields.Integer(description='product id'),
         'name': fields.String(required=True, description='product name'),
         'manufacturer': fields.String(description='product manufacturer'),
         'price': fields.Float(required=True, description='product price'),
         'location': fields.String(required=True, description='product location'),
         'count': fields.Integer(description='number of products available'),
         'dateCreated': fields.DateTime(description='date created')
+    })
+
+class PurchaseDto:
+    api = Namespace('purchase', description='purchase related operations', path='/')
+    purchase = api.model('purchase', {
+        'id': fields.Integer(description='purchasee id'),
+        'productId': fields.Integer(required=True, description='product id'),
+        'paid': fields.Float(description='purchase amount paid'),
+        'count': fields.Integer(description='number of products available'),
+        'status': fields.String(description='purchase status')
     })

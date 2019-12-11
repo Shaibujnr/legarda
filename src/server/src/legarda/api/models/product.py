@@ -16,6 +16,7 @@ class Product(db.Model):
     count = db.Column(db.Integer, nullable=False, default=1)
     is_available = db.Column(db.Boolean, nullable=False, default=True)
     date_created = db.Column(db.DateTime, nullable=False, default=func.now())
+    purchase = db.relationship('Purchase', backref='product', lazy=True, uselist=False)
     
 
     def __init__(self, name, price, location, count=1, manufacturer=None):
