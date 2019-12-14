@@ -5,7 +5,9 @@ import {Form, Input, Button} from 'reactstrap';
 import axios from 'axios';
 import Router from 'next/router';
 import Cookie from 'js-cookie';
-
+import {NextPageContext} from 'next';
+import cookies from 'next-cookies';
+import AuthService from '../data/services/AuthService';
 
 interface IRegisterState{
     firstName:string;
@@ -17,29 +19,32 @@ interface IRegisterState{
 }
 
 export default class Register extends Component<{},IRegisterState>{
+    authService: AuthService;
+
     constructor(props:any){
         super(props);
         this.state = {firstName:'', lastName:'', email:'', username: '', password:'', confirmPassword:''};
+        this.authService = new AuthService();
+    }
+
+    static async getInitialProps(ctx:NextPageContext){
+        let token = cookies(ctx)!.token;
+        if(!token){return {}}
+        if(ctx.res) {
+            ctx.res.writeHead(302, {
+              Location: '/'
+            })
+            ctx.res.end()
+        } else {
+            Router.push('/')
+        }
+        return {}
     }
 
     register = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        try{
-            let endpoint = "http://localhost:5000/api/v1/users";
-            if(this.state.confirmPassword != this.state.password){
-                return;
-            } 
-            let payload = {...this.state};
-            delete payload.confirmPassword;
-            let response = await axios.post(endpoint, payload);
-            let token = response.data.token;
-            Cookie.set('token', token);
-            Router.push("/");
-        }
-        catch(e){
-            console.log(e.response.data);
-        }
-
+        let payload = {...this.state};
+        return await this.authService.signUp(payload);
     }
 
     setEmail = (event: ChangeEvent<HTMLInputElement>) => {

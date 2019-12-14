@@ -1,16 +1,34 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../assets/css/auth.css';
 import {Component, ChangeEvent, FormEvent} from 'react';
-import {Form, FormGroup, Label, Input, Button} from 'reactstrap';
-import axios from 'axios';
+import {Form, Input, Button} from 'reactstrap';
 import Router from 'next/router';
-import Cookie from 'js-cookie';
+import cookies from 'next-cookies';
+import {NextPageContext} from 'next';
+import AuthService from '../data/services/AuthService';
 
 
 export default class Login extends Component<{}, {email:string, password:string}>{
+    authService: AuthService;
+
     constructor(props:any){
         super(props);
         this.state = {email:"", password:""};
+        this.authService = new AuthService();
+    }
+
+    static async getInitialProps(ctx:NextPageContext){
+        let token = cookies(ctx)!.token;
+        if(!token){return {}}
+        if(ctx.res) {
+            ctx.res.writeHead(302, {
+              Location: '/'
+            })
+            ctx.res.end()
+        } else {
+            Router.push('/')
+        }
+        return {}
     }
 
     setEmail = (event: ChangeEvent<HTMLInputElement>) => {
@@ -23,18 +41,7 @@ export default class Login extends Component<{}, {email:string, password:string}
 
     login = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        try{
-            let endpoint = "http://localhost:5000/api/v1/auth/login"; 
-            let payload = {name: this.state.email, password: this.state.password};
-            let response = await axios.post(endpoint, payload);
-            let token = response.data.token;
-            Cookie.set('token', token);
-            Router.push("/");
-        }
-        catch(e){
-            console.log(e.response.data);
-        }
-            
+        return await this.authService.login(this.state.email, this.state.password);  
     }
 
     render(){
