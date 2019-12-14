@@ -104,6 +104,18 @@ bcrypt = "*"
 
 [[package]]
 category = "main"
+description = "A Flask extension adding a decorator for CORS support"
+name = "flask-cors"
+optional = false
+python-versions = "*"
+version = "3.0.8"
+
+[package.dependencies]
+Flask = ">=0.9"
+Six = "*"
+
+[[package]]
+category = "main"
 description = "Extended JWT integration with Flask"
 name = "flask-jwt-extended"
 optional = false
@@ -400,7 +412,7 @@ version = "0.6.0"
 more-itertools = "*"
 
 [metadata]
-content-hash = "7269b723c15641a3fe7df65034a39eb7432e8dfa9a36e9586b6e16f0d5754826"
+content-hash = "b0051cf3a523977f905ce821eb192f31e6f3a831ea5e92b7865f1de36ff9f7d7"
 python-versions = "^3.7"
 
 [metadata.hashes]
@@ -414,6 +426,7 @@ click = ["2335065e6395b9e67ca716de5f7526736bfa6ceead690adf616d925bdc622b13", "5b
 colorama = ["7d73d2a99753107a36ac6b455ee49046802e59d9d076ef8e47b61499fa29afff", "e96da0d330793e2cb9485e9ddfd918d456036c7149416295932478192f4436a1"]
 flask = ["13f9f196f330c7c2c5d7a5cf91af894110ca0215ac051b5844701f2bfd934d52", "45eb5a6fd193d6cf7e0cf5d8a5b31f83d5faae0293695626f539a823e93b13f6"]
 flask-bcrypt = ["d71c8585b2ee1c62024392ebdbc447438564e2c8c02b4e57b56a4cafd8d13c5f"]
+flask-cors = ["72170423eb4612f0847318afff8c247b38bd516b7737adfc10d1c2cdbb382d16", "f4d97201660e6bbcff2d89d082b5b6d31abee04b1b3003ee073a6fd25ad1d69a"]
 flask-jwt-extended = ["0aa8ee6fa7eb3be9314e39dd199ac8e19389a95371f9d54e155c7aa635e319dd"]
 flask-migrate = ["6fb038be63d4c60727d5dfa5f581a6189af5b4e2925bc378697b4f0a40cfb4e1", "a96ff1875a49a40bd3e8ac04fce73fdb0870b9211e6168608cbafa4eb839d502"]
 flask-restplus = ["a15d251923a8feb09a5d805c2f4d188555910a42c64d58f7dd281b8cac095f1b", "a66e442d0bca08f389fc3d07b4d808fc89961285d12fb8013f7cf15516fa9f5c"]

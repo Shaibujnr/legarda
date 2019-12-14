@@ -57,3 +57,37 @@ class AuthService:
                 'message': 'Provide a valid auth token.'
             }
             return response_object, 403
+
+    @staticmethod
+    def validateToken(token):
+        data = decode_token(token)
+        isBlacklisted = BlacklistToken.is_blacklisted(data['jti'])
+        if isBlacklisted:
+            response_object = {
+                'status': 'fail',
+                'message': 'invalid token'
+            }
+            return response_object, 400
+        if data:
+            user_id = data['identity']
+            user: User = User.query.get(user_id)
+            response_object = {
+                'status': 'sucess',
+                'data': {
+                    'id': user.id,
+                    'firstName': user.first_name,
+                    'lastName': user.last_name,
+                    'email': user.email,
+                    'username': user.username,
+                    'isAdmin': user.admin,
+                    'isActive': user.is_active,
+                    'isVerified': user.is_email_verified
+                }
+            }
+            return response_object, 200
+        else:
+            response_object = {
+                'status': 'fail',
+                'message': 'invalid token'
+            }
+            return response_object, 400
