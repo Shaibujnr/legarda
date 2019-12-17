@@ -1,6 +1,6 @@
 from legarda.api import db, flask_bcrypt
 from sqlalchemy.sql import func
-
+from .helper import users_purchases
 
 class User(db.Model):
     """ User Model for storing user related details """
@@ -17,6 +17,9 @@ class User(db.Model):
     is_email_verified = db.Column(db.Boolean, nullable=False, default=False)
     is_active = db.Column(db.Boolean, nullable=False, default=True)
     registered_on = db.Column(db.DateTime, nullable=False, default=func.now())
+    purchases = db.relationship('Purchase', backref='owner', lazy=True)
+    shared_purchases = db.relationship('Purchase', secondary=users_purchases, lazy='subquery',
+        backref=db.backref('shared_users', lazy=True))
 
     def __init__(self, first_name, last_name, email, username, password, admin=False):
         self.first_name = first_name

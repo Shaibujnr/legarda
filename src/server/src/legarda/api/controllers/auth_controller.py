@@ -9,7 +9,7 @@ api = AuthDto.api
 user_auth = AuthDto.user_auth
 
 parser = api.parser()
-parser.add_argument('Authorization', location='headers')
+parser.add_argument('Authorization', location='headers', required=True)
 
 validate_model = api.model('validate_token_details', {'token': fields.String(required=True, description='The user token')})
 

@@ -12,6 +12,8 @@ class Config:
     JWT_ACCESS_TOKEN_EXPIRES = False
     JWT_BLACKLIST_ENABLED = True
     DEBUG = False
+    PAYSTACK_PRIVATE_KEY = os.getenv('PAYSTACK_PRIVATE_KEY')
+    PAYSTACK_PUBLIC_KEY = os.getenv('PAYSTACK_PUBLIC_KEY')
 
 
 class DevelopmentConfig(Config):

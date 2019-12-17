@@ -1,11 +1,23 @@
 from flask import request
 from flask_restplus import Resource
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from legarda.api.utils.dto import PurchaseDto
 from legarda.api.services.purchase_service import PurchaseService
 
 api = PurchaseDto.api
 _purchase = PurchaseDto.purchase
+parser = api.parser()
+parser.add_argument('Authorization', location='headers', required=True)
+# parser.add_argument('id', type=int, location='json')
+# parser.add_argument('productId', required=True, type=int, location='json')
+# parser.add_argument('paid', type=float, location='json')
+# parser.add_argument('count', type=int)
+# parser.add_argument('status', type=str)
+# _purchase = PurchaseDto.purchase
+
+# parser = api.parser()
+# parser.add_argument('Authorization', location='headers', required=True)
 
 
 @api.route('/purchases')
@@ -19,11 +31,13 @@ class PurchaseList(Resource):
 
     @api.response(201, 'purchase successfully created.')
     @api.doc('start a new purchase')
-    @api.expect(_purchase, validate=True)
+    @api.expect(_purchase, parser, validate=True)
+    @jwt_required
     def post(self):
         """Starts a new product purchase """
         data = request.json
-        return PurchaseService.start_purchase(data=data)
+        owner_id = get_jwt_identity()
+        return PurchaseService.start_purchase(owner_id=owner_id, data=data)
 
 
 @api.route('/purchases/<int:purchase_id>')

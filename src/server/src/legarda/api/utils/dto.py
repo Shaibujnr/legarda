@@ -43,6 +43,9 @@ class PurchaseDto:
         'id': fields.Integer(description='purchasee id'),
         'productId': fields.Integer(required=True, description='product id'),
         'paid': fields.Float(description='purchase amount paid'),
-        'count': fields.Integer(description='number of products available'),
-        'status': fields.String(description='purchase status')
+        'count': fields.Integer(description='number of products available', required=True, min=1),
+        'sharedUserIds': fields.List(fields.Integer, description='list of user_ids this product should be shared with', required=True),
+        'status': fields.String(description='purchase status'),
+        'toPay': fields.Float(description='amount to be paid to start purchase', required=True, min=100)
     })
+        
