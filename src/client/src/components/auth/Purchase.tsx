@@ -18,6 +18,7 @@ import Cookie from 'js-cookie';
 import {Component, ChangeEvent, FormEvent} from 'react';
 import Link from 'next/link';
 import UserService from '../../data/services/UserService';
+import PurchaseService from '../../data/services/PurchaseService';
 
 
 interface IPurchaseProps{
@@ -30,15 +31,18 @@ interface IPurchaseState{
     users: User[];
     userSuggestions: User[];
     dirtyUser: User | null;
+    toPay: number;
 }
 
 export default class Purcahse extends Component<IPurchaseProps, IPurchaseState>{
     userService: UserService;
+    purchaseService: PurchaseService;
 
     constructor(props:any){
         super(props);
-        this.state = {users:[], dirtyUser:null, userSuggestions:[]};
+        this.state = {users:[], dirtyUser:null, userSuggestions:[], toPay:0};
         this.userService = new UserService();
+        this.purchaseService = new PurchaseService();
     }
 
     getSuggestionValue = (user:User) => user.username;
@@ -67,7 +71,18 @@ export default class Purcahse extends Component<IPurchaseProps, IPurchaseState>{
     }
 
     add = () => {
-        this.setState({users: [...this.state.users, this.state.dirtyUser!], dirtyUser:null});
+        if(this.state.dirtyUser != null){
+            this.setState({users: [...this.state.users, this.state.dirtyUser!], dirtyUser:null});
+        }
+        
+    }
+
+    setToPay = (event: ChangeEvent<HTMLInputElement>) => {
+        this.setState({toPay: parseFloat(event.target.value)});
+    }
+
+    makePayment = async () => {
+        await this.purchaseService.newPurchase(this.state.toPay, 1, this.props.product, this.state.users);
     }
 
     render(){
@@ -78,6 +93,8 @@ export default class Purcahse extends Component<IPurchaseProps, IPurchaseState>{
                     <p>Manufactured By: {this.props.product!.manufacturer}</p>
                     <p>#{this.props.product!.price}</p>
                     <hr/>
+                    <Input value={this.state.toPay} onChange={this.setToPay} placeholder='starting payment to secure purchase'
+                            type='number'/>
                     <Row style={{marginTop:'5px', marginBottom:'5px'}}>
                         <Col md='9'>
                             <AutoSuggestInput
@@ -98,7 +115,7 @@ export default class Purcahse extends Component<IPurchaseProps, IPurchaseState>{
                             return <ListGroupItem disabled key={value.username} style={{margin:'2px'}}>{value.username}</ListGroupItem>
                         })}
                     </ListGroup>
-                    <Button color='primary' style={{marginTop:'5px'}}>Make Payment</Button>
+                    <Button color='primary' style={{marginTop:'5px'}} onClick={this.makePayment}>Make Payment</Button>
                 </div>
             </Modal>
         );

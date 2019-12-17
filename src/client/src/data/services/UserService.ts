@@ -21,7 +21,7 @@ export default class UserService{
             let userListData: any[] = response.data.data;
             let result = [];
             for(let i = 0; i < userListData.length; i++){
-                result.push(this.parseProductData(userListData[i]));
+                result.push(this.parseUserData(userListData[i]));
             }
             return result;
         }
@@ -31,7 +31,7 @@ export default class UserService{
         }
     }
 
-    private parseProductData = (data: any) : User => {
+    private parseUserData = (data: any) : User => {
         return new User(data.id, data.firstName, data.lastName, data.email, data.username)
     }
 
