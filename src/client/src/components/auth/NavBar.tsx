@@ -1,9 +1,24 @@
 import '../../assets/css/nav.css';
-import {Component} from 'react';
+import {Component, Fragment} from 'react';
 import Link from 'next/link';
+import { Button } from 'reactstrap';
+import AuthService from '../../data/services/AuthService';
+import Cookie from 'js-cookie';
 
 
 export default class NavBar extends Component{
+    authService: AuthService;
+
+    constructor(props:any){
+        super(props);
+        this.authService = new AuthService();
+    }
+
+    logout = async () =>  {
+        let token = Cookie.get('token');
+        return await this.authService.logout(token!);
+    }
+
     render(){
         return (
             <header>
@@ -17,11 +32,11 @@ export default class NavBar extends Component{
                                 <label htmlFor="drop" className="toggle">Menu</label>
                                 <input type="checkbox" id="drop" />
                                 <ul className="menu">
-                                    <Link href='/'><a>Home</a></Link>
-                                    <Link href='/about'><a>About</a></Link>
+                                    <Link href='/'><a>Overview</a></Link>
                                     <Link href='/purchases'><a>Purchases</a></Link>
                                     <Link href='/products'><a >Products</a></Link>
                                     <Link href='/activities'><a>Activities</a></Link>
+                                    <Button color='info' onClick={this.logout}>Logout</Button>
                                 </ul>
                             </nav>
                         </div>
