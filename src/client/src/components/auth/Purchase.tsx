@@ -88,13 +88,25 @@ export default class Purcahse extends Component<IPurchaseProps, IPurchaseState>{
     render(){
         return (
             <Modal isOpen={this.props.isModalOpen} toggle={this.props.toggleModal}>
-                <div style={{padding:'15px'}}>
+                <div style={{padding:'15px', backgroundColor:'#719cfe', color:'black'}}>
                     <h4>{this.props.product!.name}</h4>
-                    <p>Manufactured By: {this.props.product!.manufacturer}</p>
-                    <p>#{this.props.product!.price}</p>
+                    <p><strong>Manufactured By:</strong> {this.props.product!.manufacturer}</p>
+                    <strong>&#8358;{this.props.product!.price}</strong>
                     <hr/>
-                    <Input value={this.state.toPay} onChange={this.setToPay} placeholder='starting payment to secure purchase'
-                            type='number'/>
+                    <strong>Initial Payment</strong>
+                    <p style={{color:'white'}}>The initial payment is required to verify interest in this product and reserve it until payment is complete</p>
+                    &#8358;
+                    <span>
+                        <Input value={this.state.toPay} onChange={this.setToPay} placeholder='amount' type='number'
+                           style={{width:'30%', display:'inline'}} min='1' max={this.props.product.price}/>
+                    </span>
+                    <hr/>
+                    <strong>Share With Other Users</strong>
+                    <p style={{color:'white'}}>
+                        Search by username, full name or email address
+                        These are users you'd like to share this product with and also split the 
+                        payment of this product with.
+                    </p>
                     <Row style={{marginTop:'5px', marginBottom:'5px'}}>
                         <Col md='9'>
                             <AutoSuggestInput
@@ -106,16 +118,15 @@ export default class Purcahse extends Component<IPurchaseProps, IPurchaseState>{
                                 onSuggestionClicked={this.suggestionClicked}/>
                         </Col>
                         <Col md='3'>
-                            <Button color='primary' onClick={this.add}>Add</Button>
+                            <Button color='dark' onClick={this.add}>Add User</Button>
                         </Col>
                     </Row>
-                    <p>Share With:</p>
                     <ListGroup>
                         {this.state.users.map((value: User, index:number) => {
                             return <ListGroupItem disabled key={value.username} style={{margin:'2px'}}>{value.username}</ListGroupItem>
                         })}
                     </ListGroup>
-                    <Button color='primary' style={{marginTop:'5px'}} onClick={this.makePayment}>Make Payment</Button>
+                    <Button color='dark' style={{marginTop:'5px'}} onClick={this.makePayment}>Make Payment</Button>
                 </div>
             </Modal>
         );
