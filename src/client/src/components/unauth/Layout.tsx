@@ -1,6 +1,4 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../assets/css/freelancer.css';
-import '../../assets/css/login-register.css';
 import {Component} from 'react';
 import Navbar from './Navbar';
 

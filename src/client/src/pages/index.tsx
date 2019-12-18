@@ -1,5 +1,5 @@
 import Home from '../components/unauth/Home';
-import Main from '../components/Main';
+import Main from '../components/auth/Main';
 import User from '../data/models/user';
 import {Component, createElement} from 'react';
 import axios from 'axios';
