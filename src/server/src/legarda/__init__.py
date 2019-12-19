@@ -6,6 +6,7 @@ from legarda.api.controllers.auth_controller import api as auth_namespace
 from legarda.api.controllers.category_controller import api as category_namespace
 from legarda.api.controllers.product_controller import api as product_namespace
 from legarda.api.controllers.purchase_controller import api as purchase_namespace
+from legarda.api.controllers.activity_controller import api as activity_namespace
 
 blueprint = Blueprint('api', __name__)
 
@@ -21,5 +22,6 @@ api.add_namespace(auth_namespace)
 api.add_namespace(category_namespace)
 api.add_namespace(product_namespace)
 api.add_namespace(purchase_namespace)
+api.add_namespace(activity_namespace)
 
 __version__ = '0.1.0'

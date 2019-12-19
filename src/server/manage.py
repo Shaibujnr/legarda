@@ -16,7 +16,7 @@ ENV_FILEPATH = os.path.abspath(os.path.join(rootdir, ENV_FILENAME))
 load_dotenv(dotenv_path=ENV_FILEPATH)
 
 from legarda.api import create_app, db
-from legarda.api.models import User, BlacklistToken, Product, Category, Purchase, Transaction
+from legarda.api.models import *
 from legarda import blueprint
 
 app = create_app(APP_ENV)

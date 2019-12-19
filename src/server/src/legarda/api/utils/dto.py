@@ -50,3 +50,10 @@ class PurchaseDto:
         'toPay': fields.Float(description='amount to be paid to start purchase', required=True, min=100)
     })
         
+class ActivityDto:
+    api = Namespace('activity', description='activity related operations', path='/')
+    activity = api.model('activity', {
+        'id': fields.Integer(description='activity id'),
+        'occured_at': fields.DateTime(description='date and time the activity was created'),
+        'activity_type': fields.String(description='type of activity')
+    })
