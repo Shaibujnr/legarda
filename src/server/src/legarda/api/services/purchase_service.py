@@ -88,7 +88,7 @@ class PurchaseService:
                 new_purchase.owner_id = owner.id
                 for shared_user in shared_users:
                     new_purchase.shared_users.append(shared_user)
-                db.session.add(purchase)
+                db.session.add(new_purchase)
                 db.session.flush()
 
                 txRef = generate_transaction_reference(owner, product)
@@ -101,12 +101,14 @@ class PurchaseService:
                 db.session.flush()
 
                 new_activity = PurchaseInitiatedActivity(amount=new_purchase.paid)
+                new_activity.owner_id = owner.id
                 new_activity.purchase_id = new_purchase.id
                 db.session.add(new_activity)
                 db.session.flush()
 
                 transaction_activity = TransactionActivity()
                 transaction_activity.transaction_id = transaction.id
+                transaction_activity.owner_id = owner.id
                 db.session.add(transaction_activity)
                 db.session.flush()
                 
