@@ -24,10 +24,6 @@ export default class HomePageComponent extends Component<{},{isLoginModalOpen:bo
         let imageurl: string = '/images/header.jpeg';
         return (
             <Layout> 
-                <Header/>
-                <Services/>
-                <About/>
-                <Footer/>
             </Layout>
         );
     }

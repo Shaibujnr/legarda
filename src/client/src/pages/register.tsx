@@ -1,13 +1,13 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../assets/css/auth.css';
-import {Component, ChangeEvent,FormEvent} from 'react';
-import {Form, Input, Button} from 'reactstrap';
+import {Component, ChangeEvent,FormEvent, CSSProperties} from 'react';
+import {Form, Input, Button, Row, Col} from 'reactstrap';
 import axios from 'axios';
 import Router from 'next/router';
 import Cookie from 'js-cookie';
 import {NextPageContext} from 'next';
 import cookies from 'next-cookies';
 import AuthService from '../data/services/AuthService';
+import Layout from '../components/unauth/Layout';
+import Link from 'next/link';
 
 interface IRegisterState{
     firstName:string;
@@ -72,21 +72,26 @@ export default class Register extends Component<{},IRegisterState>{
     }
 
     render(){
+        let marginTopStyle: CSSProperties = {marginTop: '5px'};
         return (
-            <div className="auth">
-                <Form onSubmit={this.register}>
-                    <img src='/images/logo.svg' style={{width: '150px', height:'150px'}}/>
-                    <h4>Register</h4>
-                    <Input type="text" placeholder="First Name" value={this.state.firstName} onChange={this.setFirstName}/>
-                    <Input type="text" placeholder="Last Name" value={this.state.lastName} onChange={this.setLastName}/>
-                    <Input type="text" placeholder="Username" value={this.state.username} onChange={this.setUsername}/>
-                    <Input type="email" placeholder="Email" value={this.state.email} onChange={this.setEmail}/>
-                    <Input type="password" placeholder="Password" value={this.state.password} onChange={this.setPassword}/>
-                    <Input type="password" placeholder="Confirm Password" value={this.state.confirmPassword} onChange={this.setConfirmPassword}/>
-                    <Button type='submit' color='primary' style={{width: '100%'}}>Register</Button>
-                </Form>
-            </div>
-            
+            <Layout>
+                <Row className='justify-content-center align-items-center'>
+                    <Col md='4' xs='10'>
+                    <Form onSubmit={this.register}>
+                        <img src='/images/logo.svg' style={{width: '150px', height:'150px'}}/>
+                        <h4 style={marginTopStyle}>Register</h4>
+                        <Input style={marginTopStyle} type="text" placeholder="First Name" value={this.state.firstName} onChange={this.setFirstName}/>
+                        <Input style={marginTopStyle} type="text" placeholder="Last Name" value={this.state.lastName} onChange={this.setLastName}/>
+                        <Input style={marginTopStyle} type="text" placeholder="Username" value={this.state.username} onChange={this.setUsername}/>
+                        <Input style={marginTopStyle} type="email" placeholder="Email" value={this.state.email} onChange={this.setEmail}/>
+                        <Input style={marginTopStyle} type="password" placeholder="Password" value={this.state.password} onChange={this.setPassword}/>
+                        <Input style={marginTopStyle} type="password" placeholder="Confirm Password" value={this.state.confirmPassword} onChange={this.setConfirmPassword}/>
+                        <Button style={{...marginTopStyle, width:'100%'}} type='submit' color='primary'>Register</Button>
+                        <p style={{...marginTopStyle, float:'right'}}>Already have an account? <Link href='/login'><a>Log in</a></Link></p>
+                    </Form>
+                    </Col>
+                </Row>
+            </Layout> 
         );
     }
 }

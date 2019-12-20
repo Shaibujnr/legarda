@@ -1,12 +1,11 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../assets/css/auth.css';
-import {Component, ChangeEvent, FormEvent} from 'react';
-import {Form, Input, Button} from 'reactstrap';
+import {Component, ChangeEvent, FormEvent, CSSProperties} from 'react';
+import {Form, Input, Button, Row, Col} from 'reactstrap';
 import Router from 'next/router';
+import Link from 'next/link';
 import cookies from 'next-cookies';
 import {NextPageContext} from 'next';
 import AuthService from '../data/services/AuthService';
-
+import Layout from '../components/unauth/Layout';
 
 export default class Login extends Component<{}, {email:string, password:string}>{
     authService: AuthService;
@@ -45,17 +44,23 @@ export default class Login extends Component<{}, {email:string, password:string}
     }
 
     render(){
+        let marginStyle: CSSProperties = {marginTop: '5px'}
         return (
-            <div className="auth">
-                <Form onSubmit={this.login}>
-                <img src='/images/logo.svg' style={{width: '150px', height:'150px'}}/>
-                    <h4>Login</h4>
-                    <Input type="email" placeholder="Email or Username" value={this.state.email} onChange={this.setEmail} />
-                    <Input type="password" placeholder="Password" value={this.state.password} onChange={this.setPassword}/>
-                    <Button type='submit' color='primary' style={{width: '100%'}}>login</Button>
-                </Form>
-            </div>
-            
+            <Layout>
+                <Row className='justify-content-center align-items-center'>
+                    <Col md='4' xs='10'>
+                    <Form onSubmit={this.login}>
+                        <img src='/images/logo.svg' style={{width: '150px', height:'150px'}}/>
+                        <h4 style={marginStyle}>Login</h4>
+                        <Input style={marginStyle} type="text" placeholder="Email or Username" value={this.state.email} onChange={this.setEmail} />
+                        <Input style={marginStyle} type="password" placeholder="Password" value={this.state.password} onChange={this.setPassword}/>
+                        <a style={{...marginStyle, float:'right'}} href='#'>forgot password?</a>
+                        <Button style={{...marginStyle, width: '100%'}} type='submit' color='primary'>login</Button> 
+                        <p style={{...marginStyle, float:'right'}}>Don't have an account? <Link href='/register'><a>register</a></Link></p>  
+                    </Form>
+                    </Col>
+                </Row>
+            </Layout>
         );
     }
 }

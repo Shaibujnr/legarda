@@ -1,14 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Component} from 'react';
-import Navbar from './Navbar';
+import '../../assets/css/nav.css';
+import {Component, Fragment} from 'react';
+import NavBar from './Navbar';
 
 export default class Layout extends Component{
     render(){
         return(
-            <div>
-                <Navbar/>
-                {this.props.children}
-            </div>
+            <Fragment>
+                <NavBar/>
+                <div style={{paddingTop:'60px'}}>
+                    {this.props.children}
+                </div>
+                
+            </Fragment>
         );
     }
 }
