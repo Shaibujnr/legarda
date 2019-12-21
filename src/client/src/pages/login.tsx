@@ -1,5 +1,5 @@
 import {Component, ChangeEvent, FormEvent, CSSProperties} from 'react';
-import {Form, Input, Button, Row, Col} from 'reactstrap';
+import {Form, Input, Button, Row, Col, Card} from 'reactstrap';
 import Router from 'next/router';
 import Link from 'next/link';
 import cookies from 'next-cookies';
@@ -47,19 +47,23 @@ export default class Login extends Component<{}, {email:string, password:string}
         let marginStyle: CSSProperties = {marginTop: '5px'}
         return (
             <Layout>
-                <Row className='justify-content-center align-items-center'>
+                <section className="hero">
+                <Row className='justify-content-center align-items-center' style={{paddingTop:'60px', width:'100%'}}>
                     <Col md='4' xs='10'>
+                        <Card style={{padding: '15px'}}>
                     <Form onSubmit={this.login}>
-                        <img src='/images/logo.svg' style={{width: '150px', height:'150px'}}/>
+                        <img src='/images/logo.svg' style={{width: '200px', height:'70px'}}/>
                         <h4 style={marginStyle}>Login</h4>
                         <Input style={marginStyle} type="text" placeholder="Email or Username" value={this.state.email} onChange={this.setEmail} />
                         <Input style={marginStyle} type="password" placeholder="Password" value={this.state.password} onChange={this.setPassword}/>
                         <a style={{...marginStyle, float:'right'}} href='#'>forgot password?</a>
                         <Button style={{...marginStyle, width: '100%'}} type='submit' color='primary'>login</Button> 
-                        <p style={{...marginStyle, float:'right'}}>Don't have an account? <Link href='/register'><a>register</a></Link></p>  
+                        <p style={{...marginStyle, float:'right', color:'black'}}>Don't have an account? <Link href='/register'><a>register</a></Link></p>  
                     </Form>
+                    </Card>
                     </Col>
                 </Row>
+            </section>
             </Layout>
         );
     }

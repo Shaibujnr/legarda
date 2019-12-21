@@ -1,5 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../assets/css/nav.css';
+import '../../assets/css/style.css';
+import Footer from '../Footer';
 import {Component, Fragment} from 'react';
 import NavBar from './Navbar';
 
@@ -8,10 +10,8 @@ export default class Layout extends Component{
         return(
             <Fragment>
                 <NavBar/>
-                <div style={{paddingTop:'60px'}}>
-                    {this.props.children}
-                </div>
-                
+                {this.props.children}
+                <Footer/>
             </Fragment>
         );
     }

@@ -19,6 +19,16 @@ export default class NavBar extends Component{
         return await this.authService.logout(token!);
     }
 
+    componentDidMount(){
+        var header = document.querySelector("header");
+        var nav = document.querySelector('nav');
+        var navLinks = nav!.querySelectorAll('a');
+        header!.classList.add("solid");
+        navLinks.forEach((value) => {
+            value.classList.add("solid-link-color");
+        });
+    }
+
     render(){
         return (
             <header>

@@ -1,4 +1,3 @@
-import '../assets/css/products.css';
 import {NextPageContext} from 'next';
 import {Component, Fragment, createElement} from 'react';
 import {Row, Col, Spinner} from 'reactstrap';
@@ -58,7 +57,7 @@ export default class ProductsPage extends Component<{},IProductsState>{
 
     render(){
         let LoadingComponent =(
-            <Row className='align-items-center justify-content-center' style={{height: '50vh'}}>
+            <Row classNameName='align-items-center justify-content-center' style={{height: '50vh'}}>
                 <Spinner type="grow" color="primary" />
                 <Spinner type="grow" color="secondary" />
                 <Spinner type="grow" color="success" />
@@ -94,6 +93,7 @@ export default class ProductsPage extends Component<{},IProductsState>{
                     {DisplayedComponent}
                 </div>
             </Layout>
+            
         );
     }
 }

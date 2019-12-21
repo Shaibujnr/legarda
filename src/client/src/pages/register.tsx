@@ -1,5 +1,5 @@
 import {Component, ChangeEvent,FormEvent, CSSProperties} from 'react';
-import {Form, Input, Button, Row, Col} from 'reactstrap';
+import {Form, Input, Button, Row, Col, Card} from 'reactstrap';
 import axios from 'axios';
 import Router from 'next/router';
 import Cookie from 'js-cookie';
@@ -75,10 +75,12 @@ export default class Register extends Component<{},IRegisterState>{
         let marginTopStyle: CSSProperties = {marginTop: '5px'};
         return (
             <Layout>
-                <Row className='justify-content-center align-items-center'>
+                <section className='hero'>
+                <Row className='justify-content-center align-items-center' style={{paddingTop:'60px', width:'100%'}}>
                     <Col md='4' xs='10'>
+                        <Card style={{padding: '15px'}}>
                     <Form onSubmit={this.register}>
-                        <img src='/images/logo.svg' style={{width: '150px', height:'150px'}}/>
+                        <img src='/images/logo.svg' style={{width: '200px', height:'70px'}}/>
                         <h4 style={marginTopStyle}>Register</h4>
                         <Input style={marginTopStyle} type="text" placeholder="First Name" value={this.state.firstName} onChange={this.setFirstName}/>
                         <Input style={marginTopStyle} type="text" placeholder="Last Name" value={this.state.lastName} onChange={this.setLastName}/>
@@ -87,10 +89,12 @@ export default class Register extends Component<{},IRegisterState>{
                         <Input style={marginTopStyle} type="password" placeholder="Password" value={this.state.password} onChange={this.setPassword}/>
                         <Input style={marginTopStyle} type="password" placeholder="Confirm Password" value={this.state.confirmPassword} onChange={this.setConfirmPassword}/>
                         <Button style={{...marginTopStyle, width:'100%'}} type='submit' color='primary'>Register</Button>
-                        <p style={{...marginTopStyle, float:'right'}}>Already have an account? <Link href='/login'><a>Log in</a></Link></p>
+                        <p style={{...marginTopStyle, float:'right', color:'black'}}>Already have an account? <Link href='/login'><a>Log in</a></Link></p>
                     </Form>
+                    </Card>
                     </Col>
                 </Row>
+                </section>
             </Layout> 
         );
     }
